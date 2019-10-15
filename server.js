@@ -1,10 +1,6 @@
-const http = require('http'); // adicionado o modulo
+const http = require('http');
+const app = require('./src/config/custom-express');
 
-// criando o servidor
-const servidor = http.createServer(function (req, resp){
-    // adicionando o conteudo da resposta
-    resp.end('<html><head></head><body>Olá mundo</body></html>');
+app.listen(3000, function(){
+    console.log('app rodando na porta 3000');
 });
-
-// config server na porta 3000
-servidor.listen(3000);
