@@ -39,6 +39,7 @@ class LivroDao {
                 if (erro) {
                     return reject('Nenhum resultado para a consulta com ID =' + id);
                 }
+                console.log(linha);
                 return resolve(linha);
             });
         });

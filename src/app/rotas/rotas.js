@@ -29,11 +29,10 @@ module.exports = (app) => {
         });
 
         app.get('/livros/form/:id', function(req, resp){
-
             livroDao = new LivroDao(db);
 
             livroDao.buscaPorId(req.params.id)
-                .then(livro => resp.marko(require('../views/livros/alterar.marko'),
+                .then(livro => resp.marko(require('../views/livros/form.marko'),
                     {
                         livro: livro 
                     }))

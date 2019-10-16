@@ -8,7 +8,7 @@ class LivroService {
 
     salvar(livro) {
         return new Promise( (resolve, reject) => {
-            livroDao = new LivroDao(this._db);
+           let livroDao = new LivroDao(this._db);
             if(livro.id) {
                 return livroDao.atualizar(livro)
                     .then(resolve())
