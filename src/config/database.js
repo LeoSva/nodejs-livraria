@@ -25,7 +25,12 @@ CREATE TABLE IF NOT EXISTS livros (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT NOT NULL, 
     preco REAL NOT NULL,
+<<<<<<< HEAD
     descricao TEXT DEFAULT ('') NOT NULL
+=======
+    descricao TEXT DEFAULT ('') NOT NULL, 
+    url_capa TEXT
+>>>>>>> 19e9b9545f4aec259db4d471218ea9665d8aedbb
 )
 `;
 
