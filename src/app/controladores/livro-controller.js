@@ -1,6 +1,7 @@
 const LivroDao = require('../infra/livro-dao');
 const db = require('../../config/database');
 const {validationResult}  = require('express-validator/check');
+const template = require('../views/templates');
 
 class LivroController {
 
@@ -19,7 +20,7 @@ class LivroController {
             const livroDao = new LivroDao(db);
             livroDao.lista()
                     .then(livros => resp.marko(
-                        require('../views/livros/lista/lista.marko'),
+                        template.livro.lista,
                         {
                             livros: livros
                         }
@@ -30,19 +31,18 @@ class LivroController {
 
     paginaCadastro() {
         return function(req, resp) {
-            resp.marko(require('../views/livros/form/form.marko'), { livro: {} });
+            resp.marko(template.livro.cadastro, { livro: {} });
         }
     }
 
-    alterar() {
+    buscaPorId() {
         return function(req, resp) {
             const id = req.params.id;
             const livroDao = new LivroDao(db);
-    
             livroDao.buscaPorId(id)
                     .then(livro => 
                         resp.marko(
-                            require('../views/livros/form/form.marko'), 
+                            template.livro.cadastro, 
                             { livro: livro }
                         )
                     )
@@ -57,7 +57,7 @@ class LivroController {
             
             if(!erros.isEmpty()) {
                 return resp.marko(
-                    require('../views/livros/form/form.marko'),
+                    template.livro.cadastro,
                     {
                         livro: req.body,
                         errosValidacao: erros.array()
@@ -75,10 +75,9 @@ class LivroController {
 
     alterar() {
         return function(req, resp) {
-            console.log(req.body);
+
             const livroDao = new LivroDao(db);
-            
-            livroDao.atualiza(req.body)
+            livroDao.altera(req.body)
                     .then(resp.redirect('/livros'))
                     .catch(erro => console.log(erro));
         }
