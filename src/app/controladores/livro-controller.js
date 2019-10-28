@@ -7,6 +7,7 @@ class LivroController {
 
     static rotas() {
         return {
+            autenticadas: '/livros*',
             base: '/',
             listagem: '/livros',
             cadastro: '/livros/form',
