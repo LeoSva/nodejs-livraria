@@ -1,29 +1,19 @@
-const LivroController = require('../controladores/livro-controller');
-const Livro = require('../modelos/livro');
-const BaseController = require('../controladores/base-controller');
+const LivroControlador = require('../controladores/livro-controlador');
+const livroControlador = new LivroControlador();
 
-livroController = new LivroController();
+const Livro = require('../modelos/livro');
 
 module.exports = (app) => {
-    const livroRotas = LivroController.rotas();
+    const rotasLivro = LivroControlador.rotas();
 
-    app.use(livroRotas.autenticadas, function(req, resp, next){
-        if(req.isAuthenticated()){
-            next();
-        }
-        else {
-            resp.redirect(BaseController.rotas().login);
-        }
-    });
-    
-    app.get(livroRotas.listagem, livroController.listar());
+    app.get(rotasLivro.lista, livroControlador.lista());
 
-    app.route(livroRotas.cadastro)
-        .get(livroController.paginaCadastro())
-        .post(Livro.validacoes(), livroController.cadastrar())
-        .put(livroController.alterar());
+    app.route(rotasLivro.cadastro)
+        .get(livroControlador.formularioCadastro())
+        .post(Livro.validacoes(), livroControlador.cadastra())
+        .put(livroControlador.edita());
 
-    app.get(livroRotas.alteracao, livroController.buscaPorId());
+    app.get(rotasLivro.edicao, livroControlador.formularioEdicao());
 
-    app.delete(livroRotas.remocao, livroController.remover());
+    app.delete(rotasLivro.delecao, livroControlador.remove());
 };
